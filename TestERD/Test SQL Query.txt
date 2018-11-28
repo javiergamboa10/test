@@ -1,0 +1,12 @@
+select qry.id_product, max(qry.product_name) as product_name, sum(qry.ammount) stock, sum(qry.expense_value) as expense_value, sum(qry.income_value) as income_value,
+  sum(qry.income_value) - sum(qry.expense_value) as earnings from
+  (
+  select tr.id_product, pr.name as product_name, (tr.ammount * tt.multiplier) as ammount,
+    iif(tt.multiplier = 1, tr.ammount * pr.cost_value, 0) as expense_value,
+    iif(tt.multiplier = -1, tr.ammount * pr.sale_value, 0) as income_value
+  from transaction tr
+  inner join product pr on (pr.id = tr.id_product and pr.id > 0)
+  inner join transaction_type tt on (tt.id = tr.id_transaction_type)
+  where tr.date <= :date
+  ) qry
+group by qry.id_product
