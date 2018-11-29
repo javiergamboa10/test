@@ -46,4 +46,25 @@ public class NonDivisibleControllerTest {
         assertEquals(7, this.Controller.getSubsetLength(pInput));
     }
 
+    @Test
+    public void getSubsetLengthFor15() {
+        List<Integer> list = new ArrayList<>();
+        list.add(278);
+        list.add(576);
+        list.add(496);
+        list.add(727);
+        list.add(410);
+        list.add(124);
+        list.add(338);
+        list.add(149);
+        list.add(209);
+        list.add(702);
+        list.add(282);
+        list.add(718);
+        list.add(771);
+        list.add(575);
+        list.add(436);
+        NonDivisibleInput pInput = new NonDivisibleInput(15, 7, list);
+        assertEquals(11, this.Controller.getSubsetLength(pInput));
+    }
 }
